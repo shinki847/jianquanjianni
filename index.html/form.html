@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>粉丝注册 · 郑文键后援会</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg1: #1a1a2e; --bg2: #16213e; --bg3: #0f3460;
+            --card: rgba(255,255,255,0.08); --border: rgba(255,255,255,0.15);
+            --gold1: #f6d365; --gold2: #fda085;
+        }
+        body {
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--bg1), var(--bg2), var(--bg3));
+            color: #eee;
+            padding-top: 70px;
+        }
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; height: 60px;
+            background: rgba(26,26,46,0.85); backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; padding: 0 30px; z-index: 100;
+        }
+        nav .logo {
+            font-weight: bold; font-size: 18px;
+            background: linear-gradient(90deg, var(--gold1), var(--gold2));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        nav .links { margin-left: auto; display: flex; gap: 20px; align-items: center; }
+        nav .links a { color: #ddd; text-decoration: none; font-size: 14px; }
+        nav .links a:hover, nav .links a.active { color: var(--gold1); }
+        .card {
+            max-width: 640px; margin: 0 auto;
+            background: var(--card); backdrop-filter: blur(12px);
+            border: 1px solid var(--border); border-radius: 20px;
+            padding: 40px 35px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+        h1 {
+            font-size: 30px; text-align: center;
+            background: linear-gradient(90deg, var(--gold1), var(--gold2));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            margin-bottom: 30px;
+        }
+        fieldset {
+            border: 1px solid var(--border); border-radius: 12px;
+            padding: 20px; margin-bottom: 20px;
+        }
+        legend { color: var(--gold1); padding: 0 10px; font-size: 16px; font-weight: bold; }
+        .row {
+            display: flex; align-items: center;
+            margin-bottom: 14px; flex-wrap: wrap; gap: 8px;
+        }
+        label { color: #ccc; font-size: 15px; min-width: 110px; }
+        input[type="text"], input[type="number"], input[type="tel"],
+        input:not([type]), select, textarea {
+            flex: 1; min-width: 200px;
+            padding: 10px 14px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid var(--border); border-radius: 8px;
+            color: #fff; font-size: 14px; outline: none;
+        }
+        input:focus, select:focus, textarea:focus { border-color: var(--gold1); }
+        select option { background: #1a1a2e; color: #fff; }
+        textarea { width: 100%; min-height: 100px; resize: vertical; }
+        .radio-group, .check-group { display: flex; flex-wrap: wrap; gap: 15px; align-items: center; }
+        .radio-group label, .check-group label { min-width: auto; cursor: pointer; }
+        input[type="radio"], input[type="checkbox"] { accent-color: var(--gold1); cursor: pointer; }
+        .btn-group { display: flex; gap: 15px; justify-content: center; margin-top: 25px; }
+        button {
+            padding: 12px 32px; font-size: 15px;
+            border: none; border-radius: 30px; cursor: pointer;
+            transition: all .3s;
+        }
+        button[type="submit"] {
+            background: linear-gradient(135deg, var(--gold1), var(--gold2));
+            color: #1a1a2e; font-weight: bold;
+        }
+        button[type="submit"]:hover { transform: translateY(-3px); }
+        button[type="reset"] {
+            background: rgba(255,255,255,0.1); color: #fff;
+            border: 1px solid var(--border);
+        }
+        .back { text-align: center; margin-top: 20px; }
+        .back a { color: #8ecae6; text-decoration: none; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">🌟 键圈后援会</div>
+        <div class="links">
+            <a href="index.html">首页</a>
+            <a href="album.html">相册</a>
+            <a href="idols.html">偶像广场</a>
+            <a href="text_format.html">文字特效</a>
+            <a href="form.html" class="active">粉丝注册</a>
+            <span id="userBox"></span>
+        </div>
+    </nav>
+
+    <div class="card">
+        <h1>加入郑文键粉丝团</h1>
+
+        <form id="form-user" onsubmit="return doSubmit(event)">
+            <fieldset>
+                <legend>基本信息</legend>
+                <div class="row">
+                    <label for="name">姓名</label>
+                    <input id="name" name="name" minlength="2" maxlength="10" autofocus placeholder="请输入你的名字">
+                </div>
+                <div class="row">
+                    <label>性别</label>
+                    <div class="radio-group">
+                        <input type="radio" id="male" name="gender" value="male" checked>
+                        <label for="male">男</label>
+                        <input type="radio" id="female" name="gender" value="female">
+                        <label for="female">女</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <label for="age">年龄</label>
+                    <input type="number" id="age" min="18" max="30" name="age" placeholder="18-30岁">
+                </div>
+                <div class="row">
+                    <label for="cellphone">手机号</label>
+                    <input type="tel" id="cellphone" name="cellphone" placeholder="选填">
+                </div>
+                <div class="row">
+                    <label for="avatar">头像</label>
+                    <input type="file" id="avatar" name="avatar">
+                </div>
+                <div class="row">
+                    <label for="city">所在城市</label>
+                    <select id="city" name="city">
+                        <option value="Beijing">北京市</option>
+                        <option value="ShangHai">上海市</option>
+                        <optgroup label="广东省">
+                            <option value="GuangZhou">广州市</option>
+                            <option value="ShenZhen">深圳市</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="row">
+                    <label for="myBrowser">了解途径</label>
+                    <input id="myBrowser" name="myBrowser" list="browsers" placeholder="选一个或自己输入">
+                    <datalist id="browsers">
+                        <option value="抖音"></option>
+                        <option value="快手"></option>
+                        <option value="91"></option>
+                        <option value="陌陌"></option>
+                        <option value="微信"></option>
+                        <option value="QQ"></option>
+                    </datalist>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>最喜欢哥哥的哪些优点（可多选）</legend>
+                <div class="check-group">
+                    <span><input type="checkbox" id="blues" name="music" value="帅气"><label for="blues">帅气</label></span>
+                    <span><input type="checkbox" id="jazz" name="music" value="个子"><label for="jazz">个子</label></span>
+                    <span><input type="checkbox" id="country" name="music" value="善良"><label for="country">善良</label></span>
+                    <span><input type="checkbox" id="hip-hop" name="music" value="腹肌"><label for="hip-hop">腹肌</label></span>
+                    <span><input type="checkbox" id="rock" name="music" value="妖娆"><label for="rock">妖娆</label></span>
+                </div>
+            </fieldset>
+
+            <div class="row" style="align-items:flex-start;">
+                <label for="intro">自我介绍</label>
+                <textarea id="intro" name="intro" placeholder="说点什么吧~"></textarea>
+            </div>
+
+            <div class="btn-group">
+                <button type="submit">提交注册</button>
+                <button type="reset">重置</button>
+            </div>
+        </form>
+
+        <div class="back"><a href="index.html">← 返回首页</a></div>
+    </div>
+
+    <script>
+        (function initUserBox() {
+            const u = localStorage.getItem('currentUser');
+            const box = document.getElementById('userBox');
+            if (u) {
+                box.innerHTML = `<span style="color:var(--gold1);font-size:14px;">你好，${u} 👋</span> <a href="javascript:void(0)" onclick="logout()" style="font-size:13px;">退出</a>`;
+            } else {
+                box.innerHTML = `<a href="login.html" style="font-size:14px;">登录/注册</a>`;
+            }
+        })();
+        function logout() { localStorage.removeItem('currentUser'); location.reload(); }
+
+        function doSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value.trim() || '新粉丝';
+            // 把新粉丝留言自动加到首页留言墙
+            const msgs = JSON.parse(localStorage.getItem('msgs') || '[]');
+            msgs.push({
+                name: name,
+                text: `我来报到啦！我是来自${document.getElementById('city').selectedOptions[0].text}的粉丝~`,
+                time: new Date().toLocaleString()
+            });
+            localStorage.setItem('msgs', JSON.stringify(msgs));
+            alert('🎉 注册成功！欢迎加入键圈！');
+            location.href = 'index.html';
+            return false;
+        }
+    </script>
+</body>
+</html>

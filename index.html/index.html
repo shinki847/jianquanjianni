@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>郑文键 | 个人主页</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg1: #1a1a2e;
+            --bg2: #16213e;
+            --bg3: #0f3460;
+            --card: rgba(255,255,255,0.08);
+            --border: rgba(255,255,255,0.15);
+            --text: #eee;
+            --sub: #aaa;
+            --gold1: #f6d365;
+            --gold2: #fda085;
+            --accent: #f6d365;
+        }
+        body.pink {
+            --bg1: #2d1b3d;
+            --bg2: #4a266a;
+            --bg3: #7b2d8b;
+            --card: rgba(255,255,255,0.12);
+            --gold1: #ffb6c1;
+            --gold2: #ff69b4;
+            --accent: #ffb6c1;
+        }
+        body {
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--bg1) 0%, var(--bg2) 50%, var(--bg3) 100%);
+            color: var(--text);
+            padding-top: 70px;
+            transition: background .6s;
+        }
+        /* 导航栏 */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0;
+            height: 60px;
+            background: rgba(26,26,46,0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center;
+            padding: 0 30px;
+            z-index: 100;
+        }
+        nav .logo {
+            font-weight: bold;
+            font-size: 18px;
+            background: linear-gradient(90deg, var(--gold1), var(--gold2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        nav .links {
+            margin-left: auto;
+            display: flex; gap: 20px;
+            align-items: center;
+        }
+        nav .links a {
+            color: #ddd; text-decoration: none; font-size: 14px;
+            transition: color .3s;
+        }
+        nav .links a:hover, nav .links a.active { color: var(--gold1); }
+        nav .theme-btn {
+            background: none; border: 1px solid var(--border);
+            color: #fff; padding: 6px 12px; border-radius: 15px;
+            cursor: pointer; font-size: 13px;
+        }
+        .hamburger {
+            display: none;
+            background: none; border: none; color: #fff;
+            font-size: 24px; cursor: pointer; margin-left: auto;
+        }
+        @media (max-width: 720px) {
+            nav .links {
+                display: none;
+                position: absolute; top: 60px; left: 0; right: 0;
+                flex-direction: column;
+                background: rgba(26,26,46,0.98);
+                padding: 20px; gap: 15px;
+            }
+            nav .links.show { display: flex; }
+            .hamburger { display: block; }
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 30px 20px; position: relative; z-index: 1; }
+        .card {
+            background: var(--card);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 25px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+        h1 {
+            font-size: 38px; text-align: center;
+            background: linear-gradient(90deg, var(--gold1), var(--gold2), var(--gold1));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 100%;
+            animation: rainbow 4s linear infinite;
+            margin-bottom: 8px;
+            letter-spacing: 2px;
+        }
+        .title-badge {
+            display: inline-block;
+            margin-left: 8px;
+            font-size: 22px;
+            transform: translateY(-4px);
+        }
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+        .sub { text-align: center; color: var(--sub); font-size: 14px; margin-bottom: 25px; letter-spacing: 2px; }
+        h3 {
+            font-size: 22px; color: var(--gold1);
+            margin-bottom: 18px;
+            border-left: 4px solid var(--gold1);
+            padding-left: 12px;
+        }
+        .photo {
+            display: block;
+            width: 100%; max-width: 480px;
+            height: auto;
+            border-radius: 16px;
+            margin: 0 auto 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: transform .3s;
+        }
+        .photo:hover { transform: scale(1.02); }
+        .profile-layout {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 24px;
+            align-items: center;
+            margin-top: 18px;
+        }
+        .profile-copy {
+            background: rgba(0,0,0,0.18);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 22px 20px;
+        }
+        .profile-tag {
+            display: inline-block;
+            margin-bottom: 12px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 12px;
+            letter-spacing: 1px;
+            background: rgba(246, 211, 101, 0.14);
+            color: var(--gold1);
+            border: 1px solid rgba(246, 211, 101, 0.28);
+        }
+        .profile-copy h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+        .profile-copy p {
+            font-size: 15px;
+            line-height: 1.9;
+            color: #e9e9e9;
+        }
+        .profile-copy .meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 12px 0 16px;
+        }
+        .meta span {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.04);
+            color: #f5f5f5;
+        }
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 18px 0 20px;
+        }
+        .tag-row span {
+            display: inline-block;
+            padding: 7px 12px;
+            border-radius: 999px;
+            background: rgba(246, 211, 101, 0.12);
+            border: 1px solid rgba(246, 211, 101, 0.28);
+            color: var(--gold1);
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+        .favorite-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin-top: 8px;
+        }
+        .favorite-card {
+            background: rgba(0,0,0,0.18);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 12px;
+            text-align: center;
+            transition: transform .25s ease, border-color .25s ease;
+        }
+        .favorite-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(246, 211, 101, 0.5);
+        }
+        .favorite-card img {
+            width: 100%;
+            height: 110px;
+            object-fit: cover;
+            border-radius: 12px;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .favorite-card .name {
+            font-size: 15px;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+        .favorite-card .desc {
+            font-size: 12px;
+            color: var(--sub);
+            line-height: 1.6;
+        }
+        .profile-list {
+            list-style: none;
+            margin-top: 18px;
+            display: grid;
+            gap: 10px;
+        }
+        .profile-list li {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            font-size: 14px;
+            color: #ddd;
+            border-bottom: 1px dashed rgba(255,255,255,0.12);
+            padding-bottom: 8px;
+        }
+        .profile-list li span {
+            color: var(--gold1);
+            font-weight: bold;
+        }
+        @media (max-width: 720px) {
+            .profile-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 弹幕层 */
+        .danmu-wrap {
+            position: relative;
+            max-width: 480px;
+            margin: 0 auto 20px;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .danmu-layer {
+            position: absolute; inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 5;
+        }
+        .danmu {
+            position: absolute;
+            white-space: nowrap;
+            color: #fff;
+            font-size: 15px;
+            text-shadow: 0 0 6px rgba(0,0,0,0.8);
+            animation: fly linear forwards;
+        }
+        @keyframes fly {
+            from { transform: translateX(100%); }
+            to { transform: translateX(-100%); }
+        }
+        .danmu-input-row {
+            display: flex; gap: 8px;
+            max-width: 480px; margin: 0 auto 15px;
+        }
+        .danmu-input-row input {
+            flex: 1;
+            padding: 8px 14px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            color: #fff; outline: none;
+            font-size: 13px;
+        }
+        .danmu-input-row button {
+            padding: 8px 18px;
+            background: var(--gold1); color: #1a1a2e;
+            border: none; border-radius: 20px;
+            cursor: pointer; font-size: 13px; font-weight: bold;
+        }
+
+        /* 打字机光标 */
+        .type-cursor {
+            display: inline-block;
+            width: 2px; height: 1em;
+            background: var(--gold1);
+            vertical-align: middle;
+            animation: blink 0.8s infinite;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* 签到区 */
+        .checkin-box {
+            margin-top: 15px;
+            padding: 18px;
+            background: rgba(0,0,0,0.25);
+            border-radius: 12px;
+            text-align: center;
+        }
+        .level-badge {
+            display: inline-block;
+            padding: 4px 14px;
+            background: linear-gradient(135deg, var(--gold1), var(--gold2));
+            color: #1a1a2e;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        .checkin-btn {
+            padding: 10px 30px;
+            background: linear-gradient(135deg, var(--gold1), var(--gold2));
+            color: #1a1a2e;
+            border: none; border-radius: 25px;
+            font-size: 15px; font-weight: bold;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: transform .3s;
+        }
+        .checkin-btn:hover { transform: scale(1.05); }
+        .checkin-btn.done {
+            background: rgba(255,255,255,0.15);
+            color: #aaa; cursor: not-allowed;
+        }
+        .streak { font-size: 13px; color: #ccc; margin-top: 8px; }
+        p { font-size: 16px; line-height: 1.9; color: #ddd; }
+
+        /* 数据看板 */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .stat-box {
+            background: rgba(0,0,0,0.25);
+            border-radius: 14px;
+            padding: 20px;
+            text-align: center;
+        }
+        .stat-box .num {
+            font-size: 32px; font-weight: bold;
+            color: var(--gold1);
+        }
+        .stat-box .label { font-size: 13px; color: var(--sub); margin-top: 5px; }
+
+        /* 打call按钮 */
+        .cheer-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 16px 50px;
+            font-size: 18px; font-weight: bold;
+            background: linear-gradient(135deg, var(--gold1), var(--gold2));
+            color: #1a1a2e;
+            border: none; border-radius: 40px;
+            cursor: pointer;
+            transition: all .2s;
+        }
+        .cheer-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(253,160,133,0.5); }
+        .cheer-btn:active { transform: scale(0.95); }
+
+        /* 倒计时 */
+        .countdown {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        .cd-box {
+            background: rgba(0,0,0,0.3);
+            padding: 15px 20px;
+            border-radius: 12px;
+            text-align: center;
+            min-width: 70px;
+        }
+        .cd-box .n { font-size: 28px; font-weight: bold; color: var(--gold1); }
+        .cd-box .l { font-size: 12px; color: var(--sub); margin-top: 4px; }
+
+        /* 关于我 */
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+        }
+        .about-item {
+            background: rgba(0,0,0,0.25);
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+        .about-item b { color: var(--gold1); margin-right: 8px; }
+
+        /* 代表作 */
+        .works {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+        }
+        .work {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
+            padding: 25px 15px;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform .3s;
+        }
+        .work:hover { transform: translateY(-5px); }
+        .work .icon { font-size: 36px; margin-bottom: 8px; }
+        .work .t { font-size: 14px; color: #ddd; }
+
+        /* 精选照片 */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px;
+            margin-top: 8px;
+        }
+        .photo-card {
+            background: rgba(0,0,0,0.18);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            transition: transform .25s ease, border-color .25s ease;
+        }
+        .photo-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(246, 211, 101, 0.5);
+        }
+        .photo-card img {
+            display: block;
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        .photo-card .label {
+            padding: 10px 12px;
+            font-size: 13px;
+            color: #eee;
+            text-align: center;
+        }
+
+        /* 联系方式 */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+        }
+        .contact-card {
+            background: rgba(0,0,0,0.18);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 18px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .contact-card .icon {
+            font-size: 24px;
+            color: var(--gold1);
+        }
+        .contact-card .name {
+            font-size: 13px;
+            color: var(--sub);
+        }
+        .contact-card .value {
+            font-size: 15px;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        /* 留言墙 */
+        .msg-input {
+            display: flex; gap: 10px;
+            margin-bottom: 20px;
+        }
+        .msg-input input {
+            flex: 1;
+            padding: 10px 15px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            color: #fff;
+            outline: none;
+        }
+        .msg-input button {
+            padding: 10px 22px;
+            background: linear-gradient(135deg, var(--gold1), var(--gold2));
+            color: #1a1a2e;
+            border: none; border-radius: 20px;
+            cursor: pointer; font-weight: bold;
+        }
+        .msg-list { max-height: 400px; overflow-y: auto; }
+        .msg-item {
+            background: rgba(0,0,0,0.25);
+            padding: 12px 16px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        .msg-item .who { color: var(--gold1); font-weight: bold; margin-right: 8px; }
+        .msg-item .time { color: var(--sub); font-size: 12px; float: right; }
+
+        /* 滚动渐入 */
+        .fade-in {
+            opacity: 1;
+            transform: none;
+            transition: none;
+        }
+        .fade-in.visible { opacity: 1; transform: none; }
+
+        /* 回到顶部 */
+        #backTop {
+            position: fixed; right: 25px; bottom: 25px;
+            width: 45px; height: 45px;
+            border-radius: 50%;
+            background: var(--gold1);
+            color: #1a1a2e;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            display: none;
+            z-index: 50;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+        }
+
+        /* 页脚 */
+        footer {
+            text-align: center;
+            color: var(--sub);
+            font-size: 13px;
+            padding: 30px 0;
+            position: relative; z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav>
+        <div class="logo">键圈 ✨</div>
+        <button class="hamburger" onclick="document.querySelector('.links').classList.toggle('show')">☰</button>
+        <div class="links">
+            <a href="index.html" class="active">首页</a>
+            <a href="album.html">相册</a>
+            <a href="idols.html">人物</a>
+            <a href="text_format.html">文字特效</a>
+            <a href="form.html">联系</a>
+            <button class="theme-btn" onclick="toggleTheme()">🌸 换肤</button>
+            <button class="theme-btn" onclick="shareSite()">📤 分享</button>
+            <span id="userBox"></span>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Hero -->
+        <div class="card fade-in">
+            <h1 id="mainProfileTitle">键圈<span class="title-badge">✨</span></h1>
+            <div class="sub" id="mainProfileSubtitle">学生 · 记录 · 日常</div>
+
+            <div class="profile-layout">
+                <div class="profile-media">
+                    <div class="danmu-wrap">
+                        <img id="mainProfileImage" class="photo" src="zwj.jpg" alt="郑文键" style="margin:0;max-width:none;">
+                        <div class="danmu-layer" id="danmuLayer"></div>
+                    </div>
+                </div>
+                <div class="profile-copy">
+                    <span class="profile-tag">个人介绍</span>
+                    <h2 id="mainProfileName">清爽少年，低调有光</h2>
+                    <div class="meta" id="mainProfileMeta">
+                        <span>西安信息职业大学</span>
+                        <span>篮球</span>
+                        <span>旅行</span>
+                        <span>摄影</span>
+                    </div>
+                    <div class="tag-row" id="mainProfileTags">
+                        <span>清爽</span>
+                        <span>安静</span>
+                        <span>摄影</span>
+                        <span>旅行</span>
+                        <span>篮球</span>
+                        <span>日常</span>
+                    </div>
+                    <p id="mainProfileIntro">来自西安信息职业大学的男生，眉眼清爽，笑容温和，日常状态自带一种安静的亲和力。喜欢拍照、旅行和记录生活里的细节，喜欢在简单的瞬间里，把一点点光都留住。</p>
+                    <ul class="profile-list" id="mainProfileList">
+                        <li><span>姓名</span><em>郑文键</em></li>
+                        <li><span>学校</span><em>西安信息职业大学</em></li>
+                        <li><span>爱好</span><em>篮球 / 拍照 / 旅行</em></li>
+                        <li><span>状态</span><em>安静、清爽、自然</em></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="danmu-input-row">
+                <input type="text" id="danmuInput" placeholder="留下一句想说的话...">
+                <button onclick="sendDanmu()">发送</button>
+            </div>
+            <p style="text-indent:2em;"><span id="typeText"></span><span class="type-cursor"></span></p>
+        </div>
+
+        <!-- 我喜欢的人 -->
+        <div class="card fade-in">
+            <h3>💖 我喜欢的人</h3>
+            <div class="favorite-grid" id="favoriteIdols"></div>
+        </div>
+
+        <!-- 精选照片 -->
+        <div class="card fade-in">
+            <h3>📸 精选照片</h3>
+            <div class="photo-grid">
+                <div class="photo-card">
+                    <img src="zwj.jpg" alt="精选照片1">
+                    <div class="label">清爽日常</div>
+                </div>
+                <div class="photo-card">
+                    <img src="zwj.jpg" alt="精选照片2">
+                    <div class="label">旅行留影</div>
+                </div>
+                <div class="photo-card">
+                    <img src="zwj.jpg" alt="精选照片3">
+                    <div class="label">校园时光</div>
+                </div>
+                <div class="photo-card">
+                    <img src="zwj.jpg" alt="精选照片4">
+                    <div class="label">低调有光</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 数据看板 -->
+        <div class="card fade-in">
+            <h3>📊 实时数据</h3>
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="num" id="onlineNum">1024</div>
+                    <div class="label">当前在线粉丝</div>
+                </div>
+                <div class="stat-box">
+                    <div class="num" id="cheerNum">8888</div>
+                    <div class="label">累计打call</div>
+                </div>
+                <div class="stat-box">
+                    <div class="num" id="fansNum">13145</div>
+                    <div class="label">注册粉丝</div>
+                </div>
+                <div class="stat-box">
+                    <div class="num">9.9</div>
+                    <div class="label">颜值评分</div>
+                </div>
+            </div>
+            <button class="cheer-btn" onclick="handleCheer()">❤️ 为哥哥打call</button>
+
+            <div class="checkin-box">
+                <div class="level-badge" id="levelBadge">初级键丝</div>
+                <div style="font-size:14px;color:#ccc;" id="streakText">连续签到 0 天</div>
+                <button class="checkin-btn" id="checkinBtn" onclick="doCheckin()">📅 今日签到</button>
+            </div>
+        </div>
+
+        <!-- 倒计时 -->
+        <div class="card fade-in">
+            <h3>⏰ 距离哥哥下次生日</h3>
+            <div class="countdown">
+                <div class="cd-box"><div class="n" id="cdD">0</div><div class="l">天</div></div>
+                <div class="cd-box"><div class="n" id="cdH">0</div><div class="l">时</div></div>
+                <div class="cd-box"><div class="n" id="cdM">0</div><div class="l">分</div></div>
+                <div class="cd-box"><div class="n" id="cdS">0</div><div class="l">秒</div></div>
+            </div>
+        </div>
+
+        <!-- 关于我 -->
+        <div class="card fade-in">
+            <h3>👤 关于哥哥</h3>
+            <div class="about-grid" id="aboutGrid"></div>
+        </div>
+
+        <!-- 联系方式 -->
+        <div class="card fade-in">
+            <h3>📬 联系我</h3>
+            <div class="contact-grid" id="contactGrid"></div>
+        </div>
+
+        <!-- 代表作 -->
+        <div class="card fade-in">
+            <h3>🎬 哥哥的日常</h3>
+            <div class="works">
+                <div class="work"><div class="icon">🏀</div><div class="t">篮球日常</div></div>
+                <div class="work"><div class="icon">📷</div><div class="t">街拍大片</div></div>
+                <div class="work"><div class="icon">🎵</div><div class="t">翻唱片段</div></div>
+                <div class="work"><div class="icon">✈️</div><div class="t">旅行vlog</div></div>
+            </div>
+        </div>
+
+        <!-- 留言墙 -->
+        <div class="card fade-in">
+            <h3>💬 粉丝留言墙</h3>
+            <div class="msg-input">
+                <input type="text" id="msgInput" placeholder="写点什么送给哥哥...">
+                <button onclick="addMsg()">留言</button>
+            </div>
+            <div class="msg-list" id="msgList"></div>
+        </div>
+    </div>
+
+    <footer>
+        © 2026 郑文键个人主页 · 用 ❤️ 制作 · 仅供学习交流
+    </footer>
+
+    <button id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+    <script>
+        // 登录状态显示
+        (function initUserBox() {
+            const box = document.getElementById('userBox');
+            if (!box) return;
+            const u = localStorage.getItem('currentUser');
+            if (u) {
+                box.innerHTML = `<span style="color:var(--gold1);font-size:14px;">你好，${u} 👋</span> <a href="javascript:void(0)" onclick="logout()" style="font-size:13px;">退出</a>`;
+            } else {
+                box.innerHTML = `<a href="login.html" style="font-size:14px;">登录/注册</a>`;
+            }
+        })();
+        function logout() {
+            localStorage.removeItem('currentUser');
+            location.reload();
+        }
+
+        function getDefaultProfile() {
+            return {
+                name: '郑文键',
+                photo: 'zwj.jpg',
+                title: '清爽少年，低调有光',
+                subtitle: '学生 · 记录 · 日常',
+                intro: '来自西安信息职业大学的男生，眉眼清爽，笑容温和，日常状态自带一种安静的亲和力。喜欢拍照、旅行和记录生活里的细节，喜欢在简单的瞬间里，把一点点光都留住。',
+                school: '西安信息职业大学',
+                hobby: '篮球 / 拍照 / 旅行',
+                status: '安静、清爽、自然',
+                tags: ['清爽', '安静', '摄影', '旅行', '篮球', '日常'],
+                meta: ['西安信息职业大学', '篮球', '旅行', '摄影'],
+                desc: '少年感、清爽、安静，最喜欢的那个人。',
+                birthday: '2002-11-11',
+                zodiac: '天蝎座',
+                fanName: '键丝',
+                feature: '眉眼清爽 / 笑容治愈',
+                wechat: 'key-chen',
+                douyin: '@郑文键geigei',
+                email: 'hello@zwj.me',
+                location: '西安',
+                label: '校草 / 少年感'
+            };
+        }
+
+        function normalizePerson(person) {
+            const def = getDefaultProfile();
+            return { ...def, ...person, contact: { ...def.contact, ...(person && person.contact || {}) } };
+        }
+
+        function getHomeProfile() {
+            const raw = JSON.parse(localStorage.getItem('myIdols') || 'null') || [];
+            const list = Array.isArray(raw) ? raw.map(normalizePerson) : [normalizePerson(raw)];
+            return list[list.length - 1] || getDefaultProfile();
+        }
+
+        function renderAboutSection(person) {
+            const grid = document.getElementById('aboutGrid');
+            if (!grid) return;
+            const items = [
+                { label: '姓名', value: person.name || '未知' },
+                { label: '学校', value: person.school || '未知学校' },
+                { label: '标签', value: person.label || person.role || '校草 / 少年感' },
+                { label: '星座', value: person.zodiac || '天蝎座' },
+                { label: '爱好', value: person.hobby || '篮球 / 拍照 / 旅行' },
+                { label: '抖音', value: person.douyin || '@未知' },
+                { label: '特点', value: person.feature || '清爽 / 温和 / 有光' },
+                { label: '粉丝名', value: person.fanName || '键丝' }
+            ];
+            grid.innerHTML = items.map(item => `<div class="about-item"><b>${item.label}</b>${item.value}</div>`).join('');
+        }
+
+        function renderContactSection(person) {
+            const grid = document.getElementById('contactGrid');
+            if (!grid) return;
+            const contact = {
+                wechat: person.wechat || person.contact?.wechat || 'key-chen',
+                douyin: person.douyin || person.contact?.douyin || '@未知',
+                email: person.email || person.contact?.email || 'hello@zwj.me',
+                location: person.location || person.contact?.location || '西安'
+            };
+            const items = [
+                { icon: '📱', name: '微信', value: contact.wechat },
+                { icon: '🎵', name: '抖音', value: contact.douyin },
+                { icon: '📧', name: '邮箱', value: contact.email },
+                { icon: '📍', name: '所在地', value: contact.location }
+            ];
+            grid.innerHTML = items.map(item => `
+                <div class="contact-card">
+                    <div class="icon">${item.icon}</div>
+                    <div class="name">${item.name}</div>
+                    <div class="value">${item.value}</div>
+                </div>
+            `).join('');
+        }
+
+        function renderMainProfile() {
+            const person = getHomeProfile();
+            const titleEl = document.getElementById('mainProfileTitle');
+            const subtitleEl = document.getElementById('mainProfileSubtitle');
+            const imageEl = document.getElementById('mainProfileImage');
+            const nameEl = document.getElementById('mainProfileName');
+            const metaEl = document.getElementById('mainProfileMeta');
+            const tagsEl = document.getElementById('mainProfileTags');
+            const introEl = document.getElementById('mainProfileIntro');
+            const listEl = document.getElementById('mainProfileList');
+
+            if (titleEl) titleEl.innerHTML = `${person.name || '键圈'}<span class="title-badge">✨</span>`;
+            if (subtitleEl) subtitleEl.textContent = person.subtitle || '学生 · 记录 · 日常';
+            if (imageEl) {
+                imageEl.src = person.photo || 'zwj.jpg';
+                imageEl.alt = person.name || '人物';
+            }
+            if (nameEl) nameEl.textContent = person.title || '清爽少年，低调有光';
+            if (metaEl) {
+                const meta = person.meta || [person.school || '西安', '篮球', '旅行', '摄影'];
+                metaEl.innerHTML = meta.map(v => `<span>${v}</span>`).join('');
+            }
+            if (tagsEl) {
+                const tags = person.tags || ['清爽', '安静', '摄影', '旅行', '篮球', '日常'];
+                tagsEl.innerHTML = tags.map(v => `<span>${v}</span>`).join('');
+            }
+            if (introEl) introEl.textContent = person.intro || person.desc || '这位人物还没有介绍。';
+            if (listEl) {
+                listEl.innerHTML = `
+                    <li><span>姓名</span><em>${person.name || '未知'}</em></li>
+                    <li><span>学校</span><em>${person.school || '未知学校'}</em></li>
+                    <li><span>爱好</span><em>${person.hobby || '未知爱好'}</em></li>
+                    <li><span>状态</span><em>${person.status || '安静、有光'}</em></li>
+                `;
+            }
+            renderAboutSection(person);
+            renderContactSection(person);
+        }
+
+        function renderFavoriteIdols() {
+            const list = JSON.parse(localStorage.getItem('myIdols') || 'null') || [
+                { name: '郑文键', photo: 'zwj.jpg', desc: '少年感、清爽、安静，最喜欢的那个人。' }
+            ];
+            const wrap = document.getElementById('favoriteIdols');
+            if (!wrap) return;
+            wrap.innerHTML = '';
+
+            list.forEach(idol => {
+                const card = document.createElement('div');
+                card.className = 'favorite-card';
+                card.innerHTML = `
+                    <img src="${idol.photo || 'zwj.jpg'}" alt="${idol.name}" onerror="this.src='zwj.jpg'">
+                    <div class="name">${idol.name}</div>
+                    <div class="desc">${idol.desc || '这位偶像还没有介绍。'}</div>
+                `;
+                wrap.appendChild(card);
+            });
+        }
+
+        renderMainProfile();
+        renderFavoriteIdols();
+        window.addEventListener('storage', () => {
+            renderMainProfile();
+            renderFavoriteIdols();
+        });
+
+        // 分享功能
+        async function shareSite() {
+            const shareData = {
+                title: '郑文键 | 个人主页',
+                text: '来看看这个简洁的个人主页。',
+                url: location.href
+            };
+            // 手机/支持系统分享的浏览器：直接弹分享菜单
+            if (navigator.share) {
+                try { await navigator.share(shareData); } catch(e) {}
+            } else {
+                // 桌面浏览器：复制链接到剪贴板
+                try {
+                    await navigator.clipboard.writeText(location.href);
+                    showToast('✅ 链接已复制，快去粘贴分享吧！');
+                } catch(e) {
+                    prompt('复制这个链接分享给好友：', location.href);
+                }
+            }
+        }
+        function showToast(text) {
+            let t = document.getElementById('toast');
+            if (!t) {
+                t = document.createElement('div');
+                t.id = 'toast';
+                t.style.cssText = `
+                    position: fixed; left: 50%; bottom: 80px;
+                    transform: translateX(-50%);
+                    background: var(--gold1); color: #1a1a2e;
+                    padding: 12px 24px; border-radius: 30px;
+                    font-size: 14px; font-weight: bold;
+                    box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+                    z-index: 9999;
+                    transition: opacity .4s;
+                `;
+                document.body.appendChild(t);
+            }
+            t.textContent = text;
+            t.style.opacity = '1';
+            setTimeout(() => t.style.opacity = '0', 2000);
+        }
+
+        // ===== 打字机效果 =====
+        const fullText = '他的气质很安静，也很清楚自己想要什么。眉眼里有温和，笑容里有光，像是一个不刻意张扬，却总会让人看一眼就记住的人。';
+        (function typewriter() {
+            const el = document.getElementById('typeText');
+            if (!el) return;
+            let i = 0;
+            function tick() {
+                if (i <= fullText.length) {
+                    el.textContent = fullText.slice(0, i);
+                    i++;
+                    setTimeout(tick, 80);
+                }
+            }
+            tick();
+        })();
+
+        // ===== 弹幕 =====
+        const presetDanmus = [
+            '哥哥好帅！', '少年感拉满✨', '今天也为哥哥心动', '键丝集合！',
+            '这颜值绝了', '哥哥看这里！', 'awsl', '未来的顶流预定',
+            '比心心 ❤️', '西信大校草实锤'
+        ];
+        const colors = ['#ff6b6b','#feca57','#48dbfb','#ff9ff3','#1dd1a1','#f368e0'];
+        function spawnDanmu(text) {
+            const layer = document.getElementById('danmuLayer');
+            const d = document.createElement('div');
+            d.className = 'danmu';
+            d.textContent = text;
+            d.style.top = (Math.random() * 80 + 5) + '%';
+            d.style.color = colors[Math.floor(Math.random() * colors.length)];
+            d.style.animationDuration = (6 + Math.random() * 6) + 's';
+            layer.appendChild(d);
+            setTimeout(() => d.remove(), 12000);
+        }
+        // 预置弹幕每2秒飞一条
+        setInterval(() => {
+            spawnDanmu(presetDanmus[Math.floor(Math.random() * presetDanmus.length)]);
+        }, 2000);
+        // 进来先飞两条
+        setTimeout(() => spawnDanmu('哥哥好帅！'), 500);
+        setTimeout(() => spawnDanmu('少年感拉满✨'), 1500);
+
+        function sendDanmu() {
+            const input = document.getElementById('danmuInput');
+            const text = input.value.trim();
+            if (!text) return;
+            spawnDanmu(text);
+            input.value = '';
+        }
+
+        // ===== 签到 + 粉丝等级 =====
+        function getCheckin() {
+            return JSON.parse(localStorage.getItem('checkin') || '{"days":0,"lastDate":""}');
+        }
+        function getLevel(days) {
+            if (days >= 30) return '🏆 骨灰粉';
+            if (days >= 14) return '🔥 铁粉';
+            if (days >= 7) return '⭐ 资深键丝';
+            if (days >= 1) return '🌱 初级键丝';
+            return '👶 新键丝';
+        }
+        function renderCheckin() {
+            const c = getCheckin();
+            document.getElementById('levelBadge').textContent = getLevel(c.days);
+            document.getElementById('streakText').textContent = `连续签到 ${c.days} 天`;
+            const today = new Date().toDateString();
+            const btn = document.getElementById('checkinBtn');
+            if (c.lastDate === today) {
+                btn.classList.add('done');
+                btn.textContent = '✅ 今日已签到';
+            } else {
+                btn.classList.remove('done');
+                btn.textContent = '📅 今日签到';
+            }
+        }
+        function doCheckin() {
+            const c = getCheckin();
+            const today = new Date().toDateString();
+            const yesterday = new Date(Date.now() - 86400000).toDateString();
+            if (c.lastDate === today) return;
+            // 连续签到：昨天签过就+1，断签就重置为1
+            c.days = (c.lastDate === yesterday) ? c.days + 1 : 1;
+            c.lastDate = today;
+            localStorage.setItem('checkin', JSON.stringify(c));
+            renderCheckin();
+            showToast(`🎉 签到成功！当前等级：${getLevel(c.days)}`);
+            burst();
+        }
+        renderCheckin();
+
+        // 打call计数
+        let cheerCount = parseInt(localStorage.getItem('cheer') || '8888');
+        document.getElementById('cheerNum').textContent = cheerCount;
+        function handleCheer() {
+            cheerCount++;
+            localStorage.setItem('cheer', cheerCount);
+            document.getElementById('cheerNum').textContent = cheerCount;
+            burst();
+        }
+
+        // 在线人数浮动
+        setInterval(() => {
+            const n = 1000 + Math.floor(Math.random() * 100);
+            document.getElementById('onlineNum').textContent = n;
+        }, 2000);
+
+        // 倒计时（跟随当前主页人物的生日）
+        function updateCountdown() {
+            const person = getHomeProfile();
+            const birthValue = person.birthday || '2002-11-11';
+            const birth = new Date(birthValue);
+            if (Number.isNaN(birth.getTime())) {
+                return;
+            }
+            const now = new Date();
+            let next = new Date(now.getFullYear(), birth.getMonth(), birth.getDate());
+            if (now > next) {
+                next = new Date(now.getFullYear() + 1, birth.getMonth(), birth.getDate());
+            }
+            const diff = next - now;
+            const d = Math.floor(diff / 86400000);
+            const h = Math.floor(diff / 3600000) % 24;
+            const m = Math.floor(diff / 60000) % 60;
+            const s = Math.floor(diff / 1000) % 60;
+            document.getElementById('cdD').textContent = d;
+            document.getElementById('cdH').textContent = h;
+            document.getElementById('cdM').textContent = m;
+            document.getElementById('cdS').textContent = s;
+        }
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // 留言墙
+        function loadMsgs() {
+            const msgs = JSON.parse(localStorage.getItem('msgs') || '[]');
+            const list = document.getElementById('msgList');
+            list.innerHTML = msgs.length ? '' : '<div style="color:#888;text-align:center;padding:20px;">还没有留言，来抢沙发~</div>';
+            msgs.forEach(m => {
+                const div = document.createElement('div');
+                div.className = 'msg-item';
+                div.innerHTML = `<span class="time">${m.time}</span><span class="who">${m.name}</span>${m.text}`;
+                list.prepend(div);
+            });
+        }
+        function addMsg() {
+            const input = document.getElementById('msgInput');
+            const text = input.value.trim();
+            if (!text) return;
+            const msgs = JSON.parse(localStorage.getItem('msgs') || '[]');
+            msgs.push({
+                name: '匿名粉丝',
+                text: text,
+                time: new Date().toLocaleString()
+            });
+            localStorage.setItem('msgs', JSON.stringify(msgs));
+            input.value = '';
+            loadMsgs();
+        }
+        loadMsgs();
+
+        // 全部直接显示，避免内容被隐藏
+        document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+
+        // 回到顶部按钮
+        window.addEventListener('scroll', () => {
+            document.getElementById('backTop').style.display =
+                window.scrollY > 300 ? 'block' : 'none';
+        });
+
+        // 主题切换
+        function toggleTheme() {
+            document.body.classList.toggle('pink');
+        }
+
+        // 点击爱心爆炸
+        function burst() {
+            for (let i = 0; i < 8; i++) {
+                const heart = document.createElement('div');
+                heart.textContent = '❤️';
+                heart.style.cssText = `
+                    position: fixed;
+                    left: 50%; bottom: 30%;
+                    font-size: ${15 + Math.random()*15}px;
+                    pointer-events: none;
+                    z-index: 9999;
+                    transition: all 1s ease-out;
+                `;
+                document.body.appendChild(heart);
+                requestAnimationFrame(() => {
+                    heart.style.transform = `translate(${(Math.random()-0.5)*200}px, -200px) scale(0.5)`;
+                    heart.style.opacity = '0';
+                });
+                setTimeout(() => heart.remove(), 1000);
+            }
+        }
+
+    </script>
+</body>
+</html>

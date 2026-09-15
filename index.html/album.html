@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>哥哥相册 · 郑文键后援会</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg1: #1a1a2e; --bg2: #16213e; --bg3: #0f3460;
+            --card: rgba(255,255,255,0.08); --border: rgba(255,255,255,0.15);
+            --gold1: #f6d365; --gold2: #fda085;
+        }
+        body {
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--bg1), var(--bg2), var(--bg3));
+            color: #eee;
+            padding-top: 70px;
+        }
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; height: 60px;
+            background: rgba(26,26,46,0.85); backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; padding: 0 30px; z-index: 100;
+        }
+        nav .logo {
+            font-weight: bold; font-size: 18px;
+            background: linear-gradient(90deg, var(--gold1), var(--gold2));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        nav .links { margin-left: auto; display: flex; gap: 20px; align-items: center; }
+        nav .links a { color: #ddd; text-decoration: none; font-size: 14px; }
+        nav .links a:hover, nav .links a.active { color: var(--gold1); }
+        .container { max-width: 1000px; margin: 0 auto; padding: 30px 20px; }
+        h1 {
+            text-align: center;
+            background: linear-gradient(90deg, var(--gold1), var(--gold2));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            font-size: 34px; margin-bottom: 8px;
+        }
+        .sub { text-align: center; color: #aaa; margin-bottom: 30px; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
+        }
+        .cell {
+            position: relative;
+            border-radius: 14px;
+            overflow: hidden;
+            cursor: pointer;
+            aspect-ratio: 3/4;
+            transition: transform .3s;
+        }
+        .cell:hover { transform: translateY(-5px); }
+        .cell img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform .5s;
+        }
+        .cell:hover img { transform: scale(1.08); }
+        .cell .tag {
+            position: absolute; left: 10px; bottom: 10px;
+            background: rgba(0,0,0,0.6);
+            padding: 4px 10px; border-radius: 12px;
+            font-size: 12px; color: #fff;
+        }
+        /* 不同滤镜假装不同照片 */
+        .f1 img { filter: none; }
+        .f2 img { filter: hue-rotate(20deg) saturate(1.2); }
+        .f3 img { filter: grayscale(0.3) contrast(1.1); }
+        .f4 img { filter: sepia(0.3); }
+        .f5 img { filter: brightness(1.1); }
+        .f6 img { filter: hue-rotate(-30deg) saturate(1.3); }
+
+        /* 灯箱 */
+        #lightbox {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.9);
+            display: none;
+            align-items: center; justify-content: center;
+            z-index: 200;
+            cursor: zoom-out;
+        }
+        #lightbox.show { display: flex; }
+        #lightbox img {
+            max-width: 90%; max-height: 90%;
+            border-radius: 12px;
+        }
+        .back { text-align: center; margin-top: 30px; }
+        .back a { color: #8ecae6; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">🌟 键圈后援会</div>
+        <div class="links">
+            <a href="index.html">首页</a>
+            <a href="album.html" class="active">相册</a>
+            <a href="idols.html">偶像广场</a>
+            <a href="text_format.html">文字特效</a>
+            <a href="form.html">粉丝注册</a>
+            <span id="userBox"></span>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>📸 哥哥相册</h1>
+        <div class="sub">点击照片可以放大看</div>
+        <div class="grid" id="grid">
+            <div class="cell f1" onclick="openLB(this)"><img src="zwj.jpg" alt=""><div class="tag">少年感</div></div>
+            <div class="cell f2" onclick="openLB(this)"><img src="zwj.jpg" alt=""><div class="tag">阳光下</div></div>
+            <div class="cell f3" onclick="openLB(this)"><img src="zwj.jpg" alt=""><div class="tag">黑白风</div></div>
+            <div class="cell f4" onclick="openLB(this)"><img src="zwj.jpg" alt=""><div class="tag">复古胶片</div></div>
+            <div class="cell f5" onclick="openLB(this)"><img src="zwj.jpg" alt=""><div class="tag">高光时刻</div></div>
+            <div class="cell f6" onclick="openLB(this)"><img src="zwj.jpg" alt=""><div class="tag">冷色调</div></div>
+            <div class="cell f2" onclick="openLB(this)"><img src="zwj.jpg" alt=""><div class="tag">日常抓拍</div></div>
+            <div class="cell f4" onclick="openLB(this)"><img src="zwj.jpg" alt=""><div class="tag">氛围感</div></div>
+        </div>
+        <div class="back"><a href="index.html">← 返回首页</a></div>
+    </div>
+
+    <div id="lightbox" onclick="closeLB()">
+        <img id="lbImg" src="" alt="">
+    </div>
+
+    <script>
+        (function initUserBox() {
+            const u = localStorage.getItem('currentUser');
+            const box = document.getElementById('userBox');
+            if (u) {
+                box.innerHTML = `<span style="color:var(--gold1);font-size:14px;">你好，${u} 👋</span> <a href="javascript:void(0)" onclick="logout()" style="font-size:13px;">退出</a>`;
+            } else {
+                box.innerHTML = `<a href="login.html" style="font-size:14px;">登录/注册</a>`;
+            }
+        })();
+        function logout() { localStorage.removeItem('currentUser'); location.reload(); }
+
+        function openLB(cell) {
+            document.getElementById('lbImg').src = cell.querySelector('img').src;
+            document.getElementById('lightbox').classList.add('show');
+        }
+        function closeLB() {
+            document.getElementById('lightbox').classList.remove('show');
+        }
+    </script>
+</body>
+</html>
