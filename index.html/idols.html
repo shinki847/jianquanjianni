@@ -175,12 +175,8 @@
                 <input type="text" id="newPhoto" placeholder="粘贴图片网址，或留空用默认头像">
             </div>
             <div class="field">
-                <label>学校 / 单位</label>
-                <input type="text" id="newSchool" placeholder="例如：清华大学 / 影视圈 / 电子厂">
-            </div>
-            <div class="field">
                 <label>职业 / 身份</label>
-                <input type="text" id="newRole" placeholder="例如：学生 / 歌手 / 设计师">
+                <input type="text" id="newRole" placeholder="例如：歌手 / 设计师 / 创作者">
             </div>
             <div class="field">
                 <label>爱好 / 标签</label>
@@ -232,7 +228,7 @@
             </div>
             <div class="field">
                 <label>标签（展示在首页）</label>
-                <input type="text" id="newLabel" placeholder="例如：校草 / 少年感">
+                <input type="text" id="newLabel" placeholder="例如：少年感 / 清爽">
             </div>
             <div class="modal-actions">
                 <button class="cancel" onclick="closeModal()">取消</button>
@@ -255,7 +251,7 @@
 
         // 默认偶像
         const defaultIdols = [
-            { name: '郑文键', photo: 'zwj.jpg', desc: '西信大校草，少年感拉满，眉眼自带清爽气质。' }
+            { name: '郑文键', photo: 'zwj.jpg', desc: '少年感拉满，眉眼自带清爽气质。' }
         ];
 
         function getIdols() {
@@ -294,7 +290,6 @@
             document.getElementById('modalMask').classList.remove('show');
             document.getElementById('newName').value = '';
             document.getElementById('newPhoto').value = '';
-            document.getElementById('newSchool').value = '';
             document.getElementById('newRole').value = '';
             document.getElementById('newHobby').value = '';
             document.getElementById('newBirthday').value = '';
@@ -315,8 +310,7 @@
             const name = document.getElementById('newName').value.trim();
             if (!name) { alert('名字不能为空'); return; }
             const photo = document.getElementById('newPhoto').value.trim() || 'zwj.jpg';
-            const school = document.getElementById('newSchool').value.trim() || '未知学校';
-            const role = document.getElementById('newRole').value.trim() || '学生';
+            const role = document.getElementById('newRole').value.trim() || '创作者';
             const hobby = document.getElementById('newHobby').value.trim() || '自由 / 热爱 / 生活';
             const birthday = document.getElementById('newBirthday').value || '2002-11-11';
             const zodiac = document.getElementById('newZodiac').value.trim() || '天蝎座';
@@ -329,12 +323,11 @@
             const status = document.getElementById('newStatus').value.trim() || '安静、清爽、自然';
             const fanName = document.getElementById('newFanName').value.trim() || '粉丝';
             const feature = document.getElementById('newFeature').value.trim() || '温柔 / 有光 / 治愈';
-            const label = document.getElementById('newLabel').value.trim() || '校草 / 少年感';
+            const label = document.getElementById('newLabel').value.trim() || '少年感 / 清爽';
             const list = getIdols();
             list.push({
                 name,
                 photo,
-                school,
                 role,
                 hobby,
                 birthday,
@@ -348,7 +341,7 @@
                 subtitle: `${role} · 记录 · 日常`,
                 intro: `${desc}。他/她有一种让人想靠近的气质，也很让人愿意留意细节。`,
                 tags: [...new Set((hobby + ' ' + status).split(/[\s/，、]+/).filter(Boolean))].slice(0, 6),
-                meta: [school, ...hobby.split(/[\s/，、]+/).filter(Boolean).slice(0, 3)],
+                meta: hobby.split(/[\s/，、]+/).filter(Boolean).slice(0, 3),
                 desc,
                 fanName,
                 feature,

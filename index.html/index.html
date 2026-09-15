@@ -584,7 +584,7 @@
         <!-- Hero -->
         <div class="card fade-in">
             <h1 id="mainProfileTitle">键圈<span class="title-badge">✨</span></h1>
-            <div class="sub" id="mainProfileSubtitle">学生 · 记录 · 日常</div>
+            <div class="sub" id="mainProfileSubtitle">记录 · 日常</div>
 
             <div class="profile-layout">
                 <div class="profile-media">
@@ -597,7 +597,6 @@
                     <span class="profile-tag">个人介绍</span>
                     <h2 id="mainProfileName">清爽少年，低调有光</h2>
                     <div class="meta" id="mainProfileMeta">
-                        <span>西安信息职业大学</span>
                         <span>篮球</span>
                         <span>旅行</span>
                         <span>摄影</span>
@@ -610,10 +609,9 @@
                         <span>篮球</span>
                         <span>日常</span>
                     </div>
-                    <p id="mainProfileIntro">来自西安信息职业大学的男生，眉眼清爽，笑容温和，日常状态自带一种安静的亲和力。喜欢拍照、旅行和记录生活里的细节，喜欢在简单的瞬间里，把一点点光都留住。</p>
+                    <p id="mainProfileIntro">眉眼清爽，笑容温和，日常状态自带一种安静的亲和力。喜欢拍照、旅行和记录生活里的细节，喜欢在简单的瞬间里，把一点点光都留住。</p>
                     <ul class="profile-list" id="mainProfileList">
                         <li><span>姓名</span><em>郑文键</em></li>
-                        <li><span>学校</span><em>西安信息职业大学</em></li>
                         <li><span>爱好</span><em>篮球 / 拍照 / 旅行</em></li>
                         <li><span>状态</span><em>安静、清爽、自然</em></li>
                     </ul>
@@ -647,7 +645,7 @@
                 </div>
                 <div class="photo-card">
                     <img src="zwj.jpg" alt="精选照片3">
-                    <div class="label">校园时光</div>
+                    <div class="label">日常留影</div>
                 </div>
                 <div class="photo-card">
                     <img src="zwj.jpg" alt="精选照片4">
@@ -759,13 +757,12 @@
                 name: '郑文键',
                 photo: 'zwj.jpg',
                 title: '清爽少年，低调有光',
-                subtitle: '学生 · 记录 · 日常',
-                intro: '来自西安信息职业大学的男生，眉眼清爽，笑容温和，日常状态自带一种安静的亲和力。喜欢拍照、旅行和记录生活里的细节，喜欢在简单的瞬间里，把一点点光都留住。',
-                school: '西安信息职业大学',
+                subtitle: '记录 · 日常',
+                intro: '眉眼清爽，笑容温和，日常状态自带一种安静的亲和力。喜欢拍照、旅行和记录生活里的细节，喜欢在简单的瞬间里，把一点点光都留住。',
                 hobby: '篮球 / 拍照 / 旅行',
                 status: '安静、清爽、自然',
                 tags: ['清爽', '安静', '摄影', '旅行', '篮球', '日常'],
-                meta: ['西安信息职业大学', '篮球', '旅行', '摄影'],
+                meta: ['篮球', '旅行', '摄影'],
                 desc: '少年感、清爽、安静，最喜欢的那个人。',
                 birthday: '2002-11-11',
                 zodiac: '天蝎座',
@@ -775,7 +772,7 @@
                 douyin: '@郑文键geigei',
                 email: 'hello@zwj.me',
                 location: '西安',
-                label: '校草 / 少年感'
+                label: '少年感 / 清爽'
             };
         }
 
@@ -795,8 +792,7 @@
             if (!grid) return;
             const items = [
                 { label: '姓名', value: person.name || '未知' },
-                { label: '学校', value: person.school || '未知学校' },
-                { label: '标签', value: person.label || person.role || '校草 / 少年感' },
+                { label: '标签', value: person.label || person.role || '少年感 / 清爽' },
                 { label: '星座', value: person.zodiac || '天蝎座' },
                 { label: '爱好', value: person.hobby || '篮球 / 拍照 / 旅行' },
                 { label: '抖音', value: person.douyin || '@未知' },
@@ -842,14 +838,14 @@
             const listEl = document.getElementById('mainProfileList');
 
             if (titleEl) titleEl.innerHTML = `${person.name || '键圈'}<span class="title-badge">✨</span>`;
-            if (subtitleEl) subtitleEl.textContent = person.subtitle || '学生 · 记录 · 日常';
+            if (subtitleEl) subtitleEl.textContent = person.subtitle || '记录 · 日常';
             if (imageEl) {
                 imageEl.src = person.photo || 'zwj.jpg';
                 imageEl.alt = person.name || '人物';
             }
             if (nameEl) nameEl.textContent = person.title || '清爽少年，低调有光';
             if (metaEl) {
-                const meta = person.meta || [person.school || '西安', '篮球', '旅行', '摄影'];
+                const meta = person.meta || ['篮球', '旅行', '摄影'];
                 metaEl.innerHTML = meta.map(v => `<span>${v}</span>`).join('');
             }
             if (tagsEl) {
@@ -860,7 +856,6 @@
             if (listEl) {
                 listEl.innerHTML = `
                     <li><span>姓名</span><em>${person.name || '未知'}</em></li>
-                    <li><span>学校</span><em>${person.school || '未知学校'}</em></li>
                     <li><span>爱好</span><em>${person.hobby || '未知爱好'}</em></li>
                     <li><span>状态</span><em>${person.status || '安静、有光'}</em></li>
                 `;
@@ -958,7 +953,7 @@
         const presetDanmus = [
             '哥哥好帅！', '少年感拉满✨', '今天也为哥哥心动', '键丝集合！',
             '这颜值绝了', '哥哥看这里！', 'awsl', '未来的顶流预定',
-            '比心心 ❤️', '西信大校草实锤'
+            '比心心 ❤️', '清爽气质实锤'
         ];
         const colors = ['#ff6b6b','#feca57','#48dbfb','#ff9ff3','#1dd1a1','#f368e0'];
         function spawnDanmu(text) {
